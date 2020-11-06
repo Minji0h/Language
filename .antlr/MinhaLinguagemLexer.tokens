@@ -1,0 +1,8 @@
+Programa=1
+Declaracoes=2
+Atribuicao=3
+Comandos=4
+Se=5
+Enquanto=6
+Para=7
+WS=8
