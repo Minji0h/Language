@@ -6,7 +6,7 @@ op: soma | multi | div | sub;
 
 //Tokens
 fragment Boleano: 'true' | 'false';
-Numero: '0' | '-'? [1-9] [0-9]* ('.' [0-9])*;
+Numero: '0' | '-'? [1-9] [0-9]* ('.' [0-9]+)?;
 fragment Texto: '"' [.*] '"';
 fragment Id: [A-Za-z] [._\-A-Za-z0-9]*;
 Variavel: Tipo Id;
