@@ -60,11 +60,11 @@ comandos: enquanto NOVALINHA|
 
 imprime:
 	(
-		'imprime ' TEXTO ';' {
+		'imprime ' TEXTO NOVALINHA {
       System.out.println($TEXTO.text);}
-		| 'imprime ' NUMERO ';' {
+		| 'imprime ' NUMERO NOVALINHA {
       System.out.println($NUMERO.text);}
-		| 'imprime ' BOLEANO ';' {
+		| 'imprime ' BOLEANO NOVALINHA {
       System.out.println($BOLEANO.text);}
 	)+;
 
