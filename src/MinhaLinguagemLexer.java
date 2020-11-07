@@ -1,4 +1,4 @@
-// Generated from c:\Users\marin\OneDrive\Documentos\GitHub\Language\src\MinhaLinguagem.g4 by ANTLR 4.8
+// Generated from MinhaLinguagem.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

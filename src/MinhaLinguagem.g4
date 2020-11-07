@@ -4,7 +4,6 @@ grammar MinhaLinguagem;
 BOLEANO: 'true' | 'false';
 NUMERO: '0' | '-'? [1-9] [0-9]* ('.' [0-9]+)?;
 TEXTO: '"' ~('\r' | '\n' | '"' | '\u0100' .. '\u017E')* '"';
-NOVALINHA: '\r'? '\n';
 
 //Declaraçào de Variavel e Atribuição
 ID: [A-Za-z] [._\-A-Za-z0-9]*;
@@ -35,36 +34,36 @@ MENOR: '<';
 
 //Laço de repetiçào While
 exprEnq: exprId simbolos (NUMERO|exprId);
-enquanto: 'Enquanto' exprEnq 'faça:' NOVALINHA comandos 'Fim enquanto';
+enquanto: 'Enquanto' exprEnq 'faça:' comandos 'Fim enquanto';
 
 //Laço de repetição Do While
-faca: 'Faça:' NOVALINHA comandos 'Enquanto' exprEnq 'Fim faça';
+faca: 'Faça:' comandos 'Enquanto' exprEnq 'Fim faça';
 
 //Condição 
-se: 'Se' (variavel|valor) simbolos (variavel|valor) 'faça:' NOVALINHA comandos 'Fim se' senao?;
-senao: 'Senão faça:' NOVALINHA comandos 'Fim senão'; 
+se: 'Se' (variavel|valor) simbolos (variavel|valor) 'faça:' comandos 'Fim se' senao?;
+senao: 'Senão faça:' comandos 'Fim senão'; 
 
 //Programaa
-programa: 'Inicio'+ declaracoes+ comandos+ 'Fim';
+programa: 'Inicio' declaracoes?  comandos 'Fim';
 declaracoes: variavel ('='+ valor)?;
 atribuicao: ID '=' valor | variavel '=' valor;
 
 
 
-comandos: enquanto NOVALINHA|
-		se NOVALINHA|
-		faca NOVALINHA|
-		conta NOVALINHA;
+comandos: enquanto|
+		se |
+		faca| 
+		conta;
 
 
 
 imprime:
 	(
-		'imprime ' TEXTO NOVALINHA {
+		'imprime ' TEXTO {
       System.out.println($TEXTO.text);}
-		| 'imprime ' NUMERO NOVALINHA {
+		| 'imprime ' NUMERO {
       System.out.println($NUMERO.text);}
-		| 'imprime ' BOLEANO NOVALINHA {
+		| 'imprime ' BOLEANO {
       System.out.println($BOLEANO.text);}
 	)+;
 
