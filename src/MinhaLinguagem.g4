@@ -1,62 +1,71 @@
 grammar MinhaLinguagem;
 
 //Definição das Variaveis 
-
-Boleano: 'true' | 'false';
-Numero: '0' | '-'? [1-9] [0-9]* ('.' [0-9]+)?;
-Texto: '"' ~('\r' | '\n' | '"' | '\u0100' .. '\u017E')* '"';
+BOLEANO: 'true' | 'false';
+NUMERO: '0' | '-'? [1-9] [0-9]* ('.' [0-9]+)?;
+TEXTO: '"' ~('\r' | '\n' | '"' | '\u0100' .. '\u017E')* '"';
+NOVALINHA: '\r'? '\n';
 
 //Declaraçào de Variavel e Atribuição
-fragment Id: [A-Za-z] [._\-A-Za-z0-9]*;
-fragment Tipo: 'Texto' | 'Inteiro' | 'Decimal';
-Valor: Numero | Boleano | Texto;
-Variavel: Tipo Id;
+ID: [A-Za-z] [._\-A-Za-z0-9]*;
+TIPO: 'Texto' | 'Inteiro' | 'Decimal';
+valor: NUMERO | BOLEANO | TEXTO;
+variavel: TIPO ID;
 
 //Expressões Matematicas
-fragment Soma: '+';
-fragment Multi: '*';
-fragment Div: '/';
-fragment Sub: '-';
 
-Expr: Expr Op Expr | Numero | '(' Expr ')';
-Op: Soma | Multi | Div | Sub;
+
+conta:
+    conta ('*'| '/') conta
+	| conta ( '+' | '-') conta
+	| (NUMERO|exprId)
+	| '(' conta ')';
 
 //Laço de repetição For
-ExprId: Id;
-ExprFor: '('ExprId 'estiver no range' (Numero|Id)')';
-Para: 'Para' ExprFor 'faça:' Comandos 'Fim para' ;
+exprId: ID;
+exprFor: '('exprId 'estiver no range' (NUMERO|exprId)')';
+para: 'Para' exprFor 'faça:' comandos 'Fim para' ;
+
+
+//Simbolos de comparação
+simbolos: MAIOR IGUAL? | IGUAL IGUAL | MENOR IGUAL?;
+MAIOR: '>';
+IGUAL: '=';
+MENOR: '<';
 
 //Laço de repetiçào While
-Simbolos: Maior Igual? | Igual Igual | Menor Igual;
-Maior: '>';
-Igual: '=';
-Menor: '<';
-ExprEnq: ExprId Simbolos (Numero|ExprId);
-Enquanto: 'Enquanto' ExprEnq 'faça:' Comandos 'Fim enquanto';
+exprEnq: exprId simbolos (NUMERO|exprId);
+enquanto: 'Enquanto' exprEnq 'faça:' NOVALINHA comandos 'Fim enquanto';
 
 //Laço de repetição Do While
-Faca: 'Faça:' Comandos 'Enquanto' ExprEnq 'Fim faça';
+faca: 'Faça:' NOVALINHA comandos 'Enquanto' exprEnq 'Fim faça';
 
 //Condição 
-Se: 'Se' (Variavel|Valor) Simbolos (Variavel|Valor) 'faça:' Comandos 'Fim se' Senao?;
-Senao: 'Senão faça:' Comandos 'Fim senão'; 
+se: 'Se' (variavel|valor) simbolos (variavel|valor) 'faça:' NOVALINHA comandos 'Fim se' senao?;
+senao: 'Senão faça:' NOVALINHA comandos 'Fim senão'; 
 
 //Programaa
-Programa: 'Inicio'+ Declaracoes+ Comandos+ 'Fim';
-Declaracoes: Variavel ('='+ Valor)?;
-Atribuicao: Id '=' Valor | Variavel '=' Valor;
-Comandos: Enquanto | Para | Se | Expr;
+programa: 'Inicio'+ declaracoes+ comandos+ 'Fim';
+declaracoes: variavel ('='+ valor)?;
+atribuicao: ID '=' valor | variavel '=' valor;
+
+
+
+comandos: enquanto NOVALINHA|
+		se NOVALINHA|
+		faca NOVALINHA|
+		conta NOVALINHA;
 
 
 
 imprime:
 	(
-		'imprime ' Texto ';' {
-      System.out.println($Texto.text);}
-		| 'imprime ' Numero ';' {
-      System.out.println($Numero.text);}
-		| 'imprime ' Boleano ';' {
-      System.out.println($Boleano.text);}
+		'imprime ' TEXTO ';' {
+      System.out.println($TEXTO.text);}
+		| 'imprime ' NUMERO ';' {
+      System.out.println($NUMERO.text);}
+		| 'imprime ' BOLEANO ';' {
+      System.out.println($BOLEANO.text);}
 	)+;
 
 // Just ignore WhiteSpaces
