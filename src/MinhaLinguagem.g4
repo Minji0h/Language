@@ -7,20 +7,14 @@ HashMap memory = HashMap<String, VarDeclaration>();
 }
 
 conta:
-	conta ('*' | '/') conta
-	| conta ( '+' | '-') conta
-	| (NUMERO | exprId {
-		if (!memory.containsKey($exprId)) {
-				System.err.println("Chave não existe");
-				} else if(memory.get($exprId) != Numero){
-					ystem.err.println("Essa variavel não é um numero!")
-				}
-	})
-	| '(' conta ')';
+	conta ('*' | '/') conta	| 
+    conta ( '+' | '-') conta | 
+    (NUMERO | exprId {if(memory.get($exprId) = NULL){System.err.println("Essa variavel não existe!")} else if(memory.get($exprId) != type.equals("NUMERO")){System.err.println("Essa variavel não é um numero!")}})|
+    '(' conta ')';
 
 //Laço de repetição For
 exprId: ID;
-exprFor: '(' exprId 'estiver no range' (NUMERO | exprId) ')';
+exprFor: '(' exprId 'estiver no range' (NUMERO | exprId {if(memory.get($exprId) = NULL){System.err.println("Essa variavel não existe!")} else if(memory.get($exprId) != type.equals("NUMERO")){System.err.println("Essa variavel não é um numero!")}}) ')';
 para: 'Para' exprFor 'faça:' comandos 'Fim para';
 
 //Simbolos de comparação
@@ -42,7 +36,7 @@ senao: 'Senão faça:' comandos 'Fim senão';
 programa: 'Inicio' declaracoes? comandos 'Fim';
 declaracoes: variavel ('='(valor | conta))?{
 		if ( $valor !=null ) {
-			if($tipo == 'Inteiro' && ($valor = Inteiro or $conta = true)){
+			if($tipo == 'Inteiro' && (memory.get($valor))){
 				System.err.println("Variavel declarada incorretamente. "+$ID.text);
 			}else if($tipo == 'String' && ($valor = String)){
 				System.err.println("Variavel declarada incorretamente. "+$ID.text);
