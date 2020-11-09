@@ -1,4 +1,4 @@
-// Generated from MinhaLinguagem.g4 by ANTLR 4.8
+// Generated from MinhaLinguagem.g4 by ANTLR 4.7.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -10,30 +10,6 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * of the available methods.
  */
 public class MinhaLinguagemBaseListener implements MinhaLinguagemListener {
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterValor(MinhaLinguagemParser.ValorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitValor(MinhaLinguagemParser.ValorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterVariavel(MinhaLinguagemParser.VariavelContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVariavel(MinhaLinguagemParser.VariavelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -214,6 +190,30 @@ public class MinhaLinguagemBaseListener implements MinhaLinguagemListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitImprime(MinhaLinguagemParser.ImprimeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValor(MinhaLinguagemParser.ValorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValor(MinhaLinguagemParser.ValorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVariavel(MinhaLinguagemParser.VariavelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariavel(MinhaLinguagemParser.VariavelContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

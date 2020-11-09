@@ -1,4 +1,4 @@
-// Generated from MinhaLinguagem.g4 by ANTLR 4.8
+// Generated from MinhaLinguagem.g4 by ANTLR 4.7.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -6,26 +6,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  * {@link MinhaLinguagemParser}.
  */
 public interface MinhaLinguagemListener extends ParseTreeListener {
-	/**
-	 * Enter a parse tree produced by {@link MinhaLinguagemParser#valor}.
-	 * @param ctx the parse tree
-	 */
-	void enterValor(MinhaLinguagemParser.ValorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MinhaLinguagemParser#valor}.
-	 * @param ctx the parse tree
-	 */
-	void exitValor(MinhaLinguagemParser.ValorContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MinhaLinguagemParser#variavel}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariavel(MinhaLinguagemParser.VariavelContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MinhaLinguagemParser#variavel}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariavel(MinhaLinguagemParser.VariavelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MinhaLinguagemParser#conta}.
 	 * @param ctx the parse tree
@@ -176,4 +156,24 @@ public interface MinhaLinguagemListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitImprime(MinhaLinguagemParser.ImprimeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MinhaLinguagemParser#valor}.
+	 * @param ctx the parse tree
+	 */
+	void enterValor(MinhaLinguagemParser.ValorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MinhaLinguagemParser#valor}.
+	 * @param ctx the parse tree
+	 */
+	void exitValor(MinhaLinguagemParser.ValorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MinhaLinguagemParser#variavel}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariavel(MinhaLinguagemParser.VariavelContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MinhaLinguagemParser#variavel}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariavel(MinhaLinguagemParser.VariavelContext ctx);
 }
