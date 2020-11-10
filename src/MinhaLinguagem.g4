@@ -1,20 +1,33 @@
 grammar MinhaLinguagem;
 
 //Expressões Matematicas
-
-@members {
-HashMap memory = HashMap<String, VarDeclaration>();
+@header {
+	import java.util.Map;
+import java.util.HashMap;
 }
 
+@members {
+Map<String, T> memory = new HashMap();
+}
 conta:
-	conta ('*' | '/') conta	| 
-    conta ( '+' | '-') conta | 
-    (NUMERO | exprId {if(memory.get($exprId) = NULL){System.err.println("Essa variavel não existe!")} else if(memory.get($exprId) != type.equals("NUMERO")){System.err.println("Essa variavel não é um numero!")}})|
-    '(' conta ')';
+	conta ('*' | '/') conta
+	| conta ( '+' | '-') conta
+	| (
+		NUMERO
+		| exprId {if(memory.get($exprId.text) == NULL){System.err.println("Essa variavel não existe!");} else if(memory.get($exprId.text) != type.isInstance("NUMERO")){System.err.println("Essa variavel não é um numero!");}
+			}
+	)
+	| '(' conta ')';
 
 //Laço de repetição For
+
 exprId: ID;
-exprFor: '(' exprId 'estiver no range' (NUMERO | exprId {if(memory.get($exprId) = NULL){System.err.println("Essa variavel não existe!")} else if(memory.get($exprId) != type.equals("NUMERO")){System.err.println("Essa variavel não é um numero!")}}) ')';
+exprFor:
+	'(' exprId 'estiver no range' (
+		NUMERO
+		| exprId {if(memory.get($exprId.text) == NULL){System.err.println("Essa variavel não existe!");} else if(memory.get($exprId.text) != type.isInstance("NUMERO")){System.err.println("Essa variavel não é um numero!");}
+			}
+	) ')';
 para: 'Para' exprFor 'faça:' comandos 'Fim para';
 
 //Simbolos de comparação
@@ -34,18 +47,18 @@ senao: 'Senão faça:' comandos 'Fim senão';
 
 //Programaa
 programa: 'Inicio' declaracoes? comandos 'Fim';
-declaracoes: variavel ('='(valor | conta))?{
-		if ( $valor !=null ) {
-			if($tipo == 'Inteiro' && (memory.get($valor))){
+declaracoes:
+	variavel ('=' (valor | conta))? ID? TIPO {
+		if ( $valor.text !=null ) {
+			if($TIPO == Integer && (memory.get($valor.text))){
 				System.err.println("Variavel declarada incorretamente. "+$ID.text);
-			}else if($tipo == 'String' && ($valor = String)){
+			}else if($TIPO == String && ($valor.text == "String")){
 				System.err.println("Variavel declarada incorretamente. "+$ID.text);
-			}else if($tipo == 'Bolean' && ($valor = String)){
+			}else if($TIPO == Bolean && ($valor.text == "String")){
 				System.err.println("Variavel declarada incorretamente. "+$ID.text);
 			}
 		}
-}
-;
+};
 atribuicao: exprId '=' valor | declaracoes;
 
 comandos: enquanto | se | faca | conta;
@@ -60,20 +73,22 @@ imprime:
       System.out.println($BOLEANO.text);}
 	)+;
 
-// Just ignore WhiteSpaces
-WS: [ \t\r\n]+ -> skip;
-
 //Definição das Variaveis 
 BOLEANO: 'true' | 'false';
 NUMERO: '0' | '-'? [1-9] [0-9]*;
 TEXTO: '"' ~('\r' | '\n' | '"' | '\u0100' .. '\u017E')* '"';
 
 //Declaraçào de Variavel e Atribuição
-ID: [A-Za-z] [._\-A-Za-z0-9]*;
-TIPO: 'Texto' | 'Inteiro' | 'Decimal';
+
+TIPO: 'Texto' | 'Inteiro' | 'Decimal' | 'Boleano';
 valor: NUMERO | BOLEANO | TEXTO;
-variavel: TIPO ID {if(varsByName.containsKey($ID.text)){System.err.println("A variavel já foi definida. "+$ID.text);}};
+variavel:
+	TIPO ID {if(memory.containsKey($ID.text)){System.err.println("A variavel já foi definida. "+$ID);}
+		};
+ID: [A-Za-z] [._\-A-Za-z0-9]*;
 //Simbolos de comparação
 MAIOR: '>';
 IGUAL: '=';
 MENOR: '<';
+// Just ignore WhiteSpaces
+WS: [ \t\r\n]+ -> skip;
